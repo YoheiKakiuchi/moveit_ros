@@ -86,6 +86,24 @@ void OccupancyMapMonitor::initialize()
   tree_.reset(new OccMapTree(map_resolution_));
   tree_const_ = tree_;
 
+  {
+    double max_x, max_y, max_z, min_x, min_y, min_z;
+    if(nh_.getParam("octomap_max_x", max_x) &&
+       nh_.getParam("octomap_max_y", max_y) &&
+       nh_.getParam("octomap_max_z", max_z) &&
+       nh_.getParam("octomap_min_x", min_x) &&
+       nh_.getParam("octomap_min_y", min_y) &&
+       nh_.getParam("octomap_min_z", min_z) ) {
+      octomap::point3d vmin(min_x, min_y, min_z);
+      octomap::point3d vmax(max_x, max_y, max_z);
+      tree_->useBBXLimit(true);
+      tree_->setBBXMin(vmin);
+      tree_->setBBXMin(vmax);
+      ROS_INFO("octomap max: %lf %lf %lf, min: %lf %lf %lf",
+               max_x, max_y, max_z, min_x, min_y, min_z);
+    }
+  }
+
   XmlRpc::XmlRpcValue sensor_list;
   if (nh_.getParam("sensors", sensor_list))
   {
