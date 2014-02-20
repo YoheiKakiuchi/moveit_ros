@@ -815,6 +815,16 @@ void RobotInteraction::processingThread()
         ROS_ERROR("Exception caught while processing event");
       }
     }
+
+    // When the feedback_map is empty, update the other interactive markers to new positions
+    // based on modified robot state. This is useful for markers for virtual joints
+    marker_access_lock_.unlock();
+    std::map<std::string, ::robot_interaction::InteractionHandlerPtr>::iterator handlers_it;
+    for (handlers_it = handlers_.begin(); handlers_it != handlers_.end(); handlers_it++)
+    {
+      updateInteractiveMarkers(handlers_it->second);
+    }
+    marker_access_lock_.lock();
   }
 }
 
