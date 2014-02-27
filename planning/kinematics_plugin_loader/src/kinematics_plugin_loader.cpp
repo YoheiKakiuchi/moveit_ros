@@ -32,7 +32,7 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
-/* Author: Ioan Sucan */
+/* Author: Ioan Sucan, Dave Coleman */
 
 #include <moveit/kinematics_plugin_loader/kinematics_plugin_loader.h>
 #include <moveit/rdf_loader/rdf_loader.h>
