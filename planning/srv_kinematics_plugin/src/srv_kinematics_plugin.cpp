@@ -480,4 +480,13 @@ const std::vector<std::string>& SrvKinematicsPlugin::getVariableNames() const
   return joint_model_group_->getVariableNames();
 }
 
+const bool SrvKinematicsPlugin::supportsGroup(const moveit::core::JointModelGroup *jmg,
+                                              std::string* error_text_out) const
+{
+  if (jmg->getName() == "whole_body") {
+    return true;
+  }
+  return false;
+}
+
 } // namespace

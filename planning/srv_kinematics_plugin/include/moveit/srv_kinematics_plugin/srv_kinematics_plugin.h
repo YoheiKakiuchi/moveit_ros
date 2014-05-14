@@ -171,6 +171,8 @@ namespace srv_kinematics_plugin
 
     virtual bool setRedundantJoints(const std::vector<unsigned int> &redundant_joint_indices);
 
+    virtual const bool supportsGroup(const moveit::core::JointModelGroup *jmg,
+                                     std::string* error_text_out = NULL) const;
   private:
 
     bool timedOut(const ros::WallTime &start_time, double duration) const;
